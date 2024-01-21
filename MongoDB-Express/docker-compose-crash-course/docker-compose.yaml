@@ -1,0 +1,28 @@
+version: '3'
+services:
+  my-app:
+    build: .
+    image: my-app-image
+    ports:
+     - 3000:3000
+    environment:
+     MONGO_DB_USERNAME: admin
+     MONGO_DB_PWD: superuser
+  mongodb:
+    image: mongo
+    ports:
+     - 27017:27017
+    environment:
+     MONGO_INITDB_ROOT_USERNAME: admin
+     MONGO_INITDB_ROOT_PASSWORD: superuser
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+     - 8081:8081
+    environment:
+     ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+     ME_CONFIG_MONGODB_ADMINPASSWORD: superuser
+     ME_CONFIG_MONGODB_SERVER: mongodb
+    depends_on:
+     - "mongodb"
