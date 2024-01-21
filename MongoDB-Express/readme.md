@@ -11,6 +11,8 @@ This guide outlines the steps to access a MongoDB database running within a Dock
 Run the following command to list the running Docker containers and connect to the mongodb
 
 ```bash
+
+1. list the running container's
 docker ps
 
 2. Access MongoDB Container
