@@ -1,16 +1,14 @@
-# Accessing MongoDB Database in Docker
+## Accessing MongoDB Database in Docker
 
 This guide outlines the steps to access a MongoDB database running within a Docker environment. Follow these steps to interact with the MongoDB database using the terminal.
 
-## Prerequisites
+### Prerequisites
 
 - Docker installed on your system ([Install Docker](https://docs.docker.com/get-docker/))
 
-## Steps
+### Steps
 
-### 1. List Running Docker Containers
-
-Run the following command to list the running Docker containers:
+Run the following command to list the running Docker containers and connect to the mongodb
 
 ```bash
 docker ps
