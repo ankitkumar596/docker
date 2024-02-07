@@ -1,0 +1,23 @@
+{
+    "family": "ecs-task-definition",
+    "containerDefinitions": [
+      {
+        "name": "mysql",
+        "image": "515787256781.dkr.ecr.ap-south-1.amazonaws.com/sarvam:20230909184154",
+        "cpu": 0,
+        "portMappings": [],
+        "essential": true,
+        "environment": [],
+        "mountPoints": [],
+        "volumesFrom": []
+      }
+    ],
+    "executionRoleArn": "arn:aws:iam::515787256781:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": [
+      "FARGATE"
+    ],
+    "cpu": "1024",
+    "memory": "3072"
+  }
+    
