@@ -1,0 +1,167 @@
+Command to connect to the database:   
+
+psql -h localhost -p 5432 -U root -d test_db
+
+Running mysql database to container and connect to it:
+
+docker run -it --name mysql-container -e MYSQL_ROOT_PASSWORD=password -d mysql
+
+docker exec -it mysql-container bash 
+
+Connect to MySQL Server:
+
+mysql -u username -p
+
+------------------------------------------------------------
+show all databases: \l
+
+CREATE DABABASE flipkart;
+DROP DATABASE flipkart;
+-------------------------------------------------------------
+CREATE TABLE person (
+    id INT,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    gender VARCHAR(6),
+    date_of_birth DATE
+);
+
+\d : show the relations
+
+\d person: describe the table
+
+DROP TABLE person;
+-----------------------------------------------------------
+create table with constraints:
+
+CREATE TABLE person (
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    gender VARCHAR(6) NOT NULL,
+    date_of_birth DATE NOT NULL
+);
+
+\dt : it shwo only table 
+
+ALTER TABLE person
+ADD COLUMN email VARCHAR(100);
+
+-------------------------------------------------------------
+
+How to insert records into the table
+
+INSERT INTO person (first_name, last_name, gender, date_of_birth, email)
+VALUES
+  ('John', 'Doe', 'Male', '1990-05-15', 'john.doe@example.com'),
+  ('Jane', 'Smith', 'Female', '1985-08-22', 'jane.smith@example.com'),
+  ('Michael', 'Johnson', 'Male', '1978-12-10', 'michael.johnson@example.com'),
+  ('Emily', 'Davis', 'Female', '1995-03-28', 'emily.davis@example.com'),
+  ('Christopher', 'Williams', 'Male', '1982-06-18', 'christopher.williams@example.com');
+
+SELECT * FROM person;
+
+
+-------------------------------------------------------------------------------------------
+
+HOW TO INSERT DATA THROUGH FILE
+
+website to denerate romdone data: https://www.mockaroo.com/
+
+\i path of the file
+
+run the command : \i /home//person.sql 
+
+create table person (
+	id BIGSERIAL NOT NULL PRIMARY KEY,
+	first_name VARCHAR(50)NOT null,
+	last_name VARCHAR(50) NOT null,
+	email VARCHAR(50),
+	gender VARCHAR(50) NOT null,
+	date_of_birth DATE NOT null,
+	Country_of_birth VARCHAR(50) NOT null
+);
+insert into person (first_name, last_name, email, gender, date_of_birth, Country_of_birth) values ('Ami', 'Brennenstuhl', 'abrennenstuhl0@quantcast.com', 'Agender', '2023-10-30', 'Indonesia');
+
+SELECT * FROM person;
+-----------------------------------------------------------------------------------------------------
+ORDER BY
+
+SELECT * FROM person ORDER BY country_of_birth ASC;
+SELECT * FROM person ORDER BY country_of_birth DESC;
+
+SELECT * FROM person ORDER BY first_name;
+SELECT * FROM person ORDER BY last_name;
+SELECT * FROM person ORDER BY email;
+
+
+--------------------------------------------------------------------------------------------------------
+
+DISTINCT : remove dublicate value from the query
+
+SELECT country_of_birth FROM person ORDER BY country_of_birth;
+
+SELECT DISTINCT country_of_birth FROM person ORDER BY country_of_birth;
+
+SELECT DISTINCT country_of_birth FROM person ORDER BY country_of_birth desc;
+
+-------------------------------------------------------------------------------------------------------
+
+WHERE CLAUSE USED TO SELECT THE DATA BASED OB THE CONDITION AND CONDITION
+
+SELECT * FROM person WHERE gender = 'male';
+
+SELECT * FROM person WHERE gender = 'Male' AND country_of_birth = 'China';
+
+SELECT * FROM person WHERE gender = 'Male' AND country_of_birth = 'China' OR country_of_birth = 'Poland';
+
+SELECT * FROM person WHERE gender = 'Male' AND country_of_birth = 'China' OR country_of_birth = 'Poland' AND last_name = 'Casellas';
+
+
+SELECT * FROM person  WHERE gender = 'Male' AND (country_of_birth = 'China' OR country_of_birth = 'Poland')  AND last_name = 'Di Ruggero';
+
+-----------------------------------------------------------------------------------------------------------------------
+
+Comparision operators;
+
+SELECT * FROM person WHERE first_name = 'john';
+
+SELECT * FROM person WHERE first_name != 'john';
+
+SELECT * FROM person WHERE email IS NOT NULL;
+
+-----------------------------------------------------------------------------------------------------------------
+
+limit offset and fetch
+
+get frist 10 records.
+
+select * from person  limit 10; 
+
+query skips the first 10 rows and retrieves all columns for the remaining rows in the "person" table.
+SELECT * FROM person OFFSET 10;
+
+select * from person offset 10 fetch FIRST 5 ROW ONLY;
+
+SELECT * FROM person ORDER BY id DESC OFFSET 5 LIMIT 10;
+
+-------------------------------------------------------------------------------------------------------------------
+
+IN keyword uses 
+
+
+SELECT * FROM person WHERE country_of_birth = 'China' OR country_of_birth = 'Indonesia';
+
+SELECT * FROM person WHERE country_of_birth IN ('China', 'Indonesia');
+
+SELECT * FROM person WHERE country_of_birth IN ('China', 'Indonesia', 'France', 'Peru') ORDER BY country_of_birth;
+
+
+
+
+
+
+
+
+
+
