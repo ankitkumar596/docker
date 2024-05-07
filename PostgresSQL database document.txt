@@ -15,7 +15,7 @@ mysql -u username -p
 ------------------------------------------------------------
 show all databases: \l
 
-CREATE DABABASE flipkart;
+CREATE DATABASE flipkart;
 DROP DATABASE flipkart;
 -------------------------------------------------------------
 CREATE TABLE person (
