@@ -1,0 +1,31 @@
+# Use a stable and production-safe base image
+FROM python:3.14-slim AS base
+
+WORKDIR /app
+
+# Install system packages required for building Python dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        gcc \
+        build-essential \
+        libffi-dev \
+        libssl-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements separately for better Docker cache efficiency
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY . .
+
+# Create non-root user
+RUN useradd -u 1000 -m appuser
+USER appuser
+
+# Expose service port
+EXPOSE 5000
+
+CMD ["python", "app.py"]
