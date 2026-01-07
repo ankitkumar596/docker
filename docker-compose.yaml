@@ -1,0 +1,48 @@
+version: "3.9"
+services:
+  backend:
+    build:
+      context: ./DietGenie.API
+      Dockerfile: Dockerfile
+    container_name: backend-api
+    ports:
+      - "7060:7060"
+    environment:
+      ASPNETCORE_URLS: http://+:7060
+      ASPNETCORE_ENVIRONMENT: Production
+    networks:
+      - dotnet-network
+
+  frontend:
+    build:
+      context: ./DietGenie
+      Dockerfile: Dockerfile
+    container_name: frontend-web
+    ports:
+      - "7092:7092"
+    environment:
+      ASPNETCORE_URLS: http://+:7092
+      ASPNETCORE_ENVIRONMENT: Production
+      BACKEND_API_URL: http://backend:7060
+    depends_on:
+      - backend
+    networks:
+      - dotnet-network
+
+  database:
+    image: postgresql:15
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: dietgenieuser
+      POSTGRES_PASSWORD: dietgeniepass
+      POSTGRES_DB: dietgeniedb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - dotnet-network
+
+networks:
+  dotnet-network:
+    driver: bridge
